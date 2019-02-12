@@ -19,7 +19,7 @@ class PostsFragment : Fragment() {
     }
 
     private val postsAdapter by lazy {
-        PostsAdapter()
+        PostsAdapter(viewModel)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

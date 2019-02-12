@@ -2,6 +2,7 @@ package com.appham.postlister.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.appham.postlister.R
 import com.appham.postlister.utils.replaceFragment
@@ -17,6 +18,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         replaceFragment(PostsFragment(), R.id.framePosts)
+
+        viewModel.getNextScreen().observe(this, Observer { userId ->
+            userId?.let {
+                startActivity(DetailsActivity.newLaunchIntent(this, userId ))
+            }
+        })
     }
 
 
