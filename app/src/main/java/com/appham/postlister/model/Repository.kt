@@ -30,7 +30,7 @@ class Repository @Inject constructor() {
 
                 onNext = {
                     Log.d(javaClass.simpleName, "onNext: $it")
-                    isSuccess.postValue(it)
+                    updatePosts(it, isSuccess)
                 },
 
                 onError = {
@@ -48,6 +48,13 @@ class Repository @Inject constructor() {
 
         compositeDisposable.add(disposable)
 
+    }
+
+    private fun updatePosts(posts: List<Post>, isSuccess: MutableLiveData<List<Post>>) {
+        executor.execute {
+            DbService.postsDb.postsDao().insert(posts)
+            isSuccess.postValue(posts)
+        }
     }
 
     fun dispose() {
