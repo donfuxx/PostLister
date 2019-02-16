@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getNextScreen().observe(this, Observer { post ->
             post?.let {
-                startActivity(DetailsActivity.newLaunchIntent(this, post.userId, post.title, post.body))
+                startActivity(DetailsActivity.newLaunchIntent(this, post.id, post.userId, post.title, post.body))
             }
         })
     }

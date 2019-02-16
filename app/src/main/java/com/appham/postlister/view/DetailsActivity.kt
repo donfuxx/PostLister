@@ -19,6 +19,7 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
+        viewModel.postId = intent?.getIntExtra(KEY_POST_ID, 0) ?: 0
         viewModel.userId = intent?.getIntExtra(KEY_USER_ID, 0) ?: 0
         viewModel.postTitle = intent?.getStringExtra(KEY_POST_TITLE) ?: ""
         viewModel.postBody = intent?.getStringExtra(KEY_POST_BODY) ?: ""
@@ -30,12 +31,14 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object {
 
+        private const val KEY_POST_ID = "KEY_POST_ID"
         private const val KEY_USER_ID = "KEY_USER_ID"
         private const val KEY_POST_TITLE = "KEY_POST_TITLE"
         private const val KEY_POST_BODY = "KEY_POST_BODY"
 
-        fun newLaunchIntent(context: Context, userId: Int, postTitle: String, postBody: String): Intent {
+        fun newLaunchIntent(context: Context, postId: Int,  userId: Int, postTitle: String, postBody: String): Intent {
             val extras = Bundle()
+            extras.putInt(KEY_POST_ID, postId)
             extras.putInt(KEY_USER_ID, userId)
             extras.putString(KEY_POST_TITLE, postTitle)
             extras.putString(KEY_POST_BODY, postBody)

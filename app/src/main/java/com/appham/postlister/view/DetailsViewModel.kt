@@ -2,7 +2,6 @@ package com.appham.postlister.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.appham.postlister.di.DaggerRepositoryComponent
 import com.appham.postlister.model.Repository
@@ -14,6 +13,7 @@ class DetailsViewModel : ViewModel() {
     @Inject
     lateinit var repository: Repository
 
+    var postId: Int = 0
     var userId: Int = 0
     lateinit var postTitle: String
     lateinit var postBody: String
@@ -21,10 +21,6 @@ class DetailsViewModel : ViewModel() {
     private val isSuccessUser: MutableLiveData<User> = MutableLiveData()
     private val isSuccessComments: MutableLiveData<Int> = MutableLiveData()
     private val isBusy: MutableLiveData<Boolean> = MutableLiveData()
-
-    private val userObserver: Observer<User> = Observer {
-        repository.commentsCount(it.email, isBusy, isSuccessComments)
-    }
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
@@ -44,13 +40,11 @@ class DetailsViewModel : ViewModel() {
 
     fun loadPostDetails() {
         repository.user(userId, isBusy, isSuccessUser)
-
-        isSuccessUser.observeForever(userObserver)
+        repository.commentsCount(postId, isBusy, isSuccessComments)
     }
 
     override fun onCleared() {
         super.onCleared()
-        isSuccessUser.removeObserver(userObserver)
         repository.dispose()
     }
 

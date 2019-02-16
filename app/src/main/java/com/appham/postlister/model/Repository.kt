@@ -121,14 +121,14 @@ class Repository @Inject constructor() {
         compositeDisposable.add(disposable)
     }
 
-    fun commentsCount(email: String, isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<Int>) {
+    fun commentsCount(postId: Int, isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<Int>) {
         val comments: MutableLiveData<List<Comment>> = MutableLiveData()
         comments(isBusy, comments)
 
         comments.observeForever { commentList ->
             commentList?.takeIf { it.isNotEmpty() }.let {
                 executor.execute {
-                    isSuccess.postValue(DbService.postsDb.commentsDao().getCount(email))
+                    isSuccess.postValue(DbService.postsDb.commentsDao().getCount(postId))
                 }
             }
         }
