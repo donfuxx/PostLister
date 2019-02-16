@@ -20,6 +20,13 @@ object ApiService {
     }
 
     /**
+     * Create api interface for users api
+     */
+    val usersApi by lazy {
+        retrofit.create(UsersApi::class.java)
+    }
+
+    /**
      * Http client with logging enabled
      */
     private val okHttpClient by lazy {

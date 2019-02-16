@@ -1,30 +1,37 @@
 package com.appham.postlister.model
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "users")
 data class User(
 
+    @Ignore
     @SerializedName("address")
-    val address: Address,
+    val address: Address? = null,
 
+    @Ignore
     @SerializedName("company")
-    val company: Company,
+    val company: Company? = null,
 
     @SerializedName("email")
-    val email: String,
+    var email: String = "",
 
+    @PrimaryKey
     @SerializedName("id")
-    val id: Int,
+    var id: Int = 0,
 
     @SerializedName("name")
-    val name: String,
+    var name: String = "",
 
     @SerializedName("phone")
-    val phone: String,
+    var phone: String = "",
 
     @SerializedName("username")
-    val username: String,
+    var username: String = "",
 
     @SerializedName("website")
-    val website: String
+    var website: String = ""
 )

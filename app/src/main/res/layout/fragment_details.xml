@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/spacing_small"
             tools:text="some id"
-            app:layout_constraintTop_toBottomOf="@id/txtDetailsPostTitle"
+            app:layout_constraintTop_toBottomOf="@id/txtDetailsPostBody"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/Text"/>
