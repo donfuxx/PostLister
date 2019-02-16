@@ -39,8 +39,8 @@ class MainViewModel : ViewModel() {
         repository.posts(isBusy, isSuccess)
     }
 
-    fun navigate(userId: Post) {
-        nextScreen.postValue(userId)
+    fun navigate(post: Post) {
+        nextScreen.postValue(post)
     }
 
     override fun onCleared() {
