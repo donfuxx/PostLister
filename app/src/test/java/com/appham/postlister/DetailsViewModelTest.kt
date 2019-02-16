@@ -2,7 +2,7 @@ package com.appham.postlister
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.appham.postlister.model.Repository
-import com.appham.postlister.view.MainViewModel
+import com.appham.postlister.view.DetailsViewModel
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.spy
 import com.nhaarman.mockitokotlin2.times
@@ -12,9 +12,9 @@ import org.junit.Test
 import org.junit.rules.TestRule
 
 
-class MainViewModelTest {
+class DetailsViewModelTest {
 
-    private val viewModelSpy: MainViewModel = spy()
+    private val viewModelSpy: DetailsViewModel = spy()
 
     private val repositorySpy: Repository = spy()
 
@@ -26,12 +26,21 @@ class MainViewModelTest {
     }
 
     /**
-    * Test that getPosts() invokes the repository's posts() ONCE
+    * Test that loadPostDetails() invokes the repository's user() and commentsCount() ONCE
     */
     @Test
-    fun testGetPostsCallsRepositoryOnce() {
-        viewModelSpy.getPosts()
-        verify(repositorySpy, times(1)).posts(any(), any())
+    fun testLoadPostDetailsCallsRepositoryUserOnce() {
+        viewModelSpy.loadPostDetails()
+        verify(repositorySpy, times(1)).user(any(), any(), any())
+    }
+
+    /**
+     * Test that loadPostDetails() invokes the repository's user() and commentsCount() ONCE
+     */
+    @Test
+    fun testLoadPostDetailsCallsRepositoryCommentsCountOnce() {
+        viewModelSpy.loadPostDetails()
+        verify(repositorySpy, times(1)).commentsCount(any(), any(), any())
     }
 
     /**
