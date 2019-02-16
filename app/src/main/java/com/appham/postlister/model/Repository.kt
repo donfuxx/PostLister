@@ -92,6 +92,48 @@ class Repository @Inject constructor() {
         }
     }
 
+    fun comments(isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<List<Comment>>) {
+        isBusy.postValue(true)
+
+        val disposable =
+            ApiService.commentsApi.getComments()
+                .subscribeOn(Schedulers.io())
+                .subscribeBy(
+
+                    onNext = {
+                        Log.d(javaClass.simpleName, "onNext: $it")
+                        updateComments(it, isSuccess)
+                    },
+
+                    onError = {
+                        Log.e(javaClass.simpleName, "onError: $it")
+                        isSuccess.postValue(null)
+                        isBusy.postValue(false)
+                    },
+
+                    onComplete = {
+                        Log.d(javaClass.simpleName, "onComplete!")
+                        isBusy.postValue(false)
+                    }
+
+                )
+
+        compositeDisposable.add(disposable)
+    }
+
+    fun commentsCount(email: String, isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<Int>) {
+        val comments: MutableLiveData<List<Comment>> = MutableLiveData()
+        comments(isBusy, comments)
+
+        comments.observeForever { commentList ->
+            commentList?.takeIf { it.isNotEmpty() }.let {
+                executor.execute {
+                    isSuccess.postValue(DbService.postsDb.commentsDao().getCount(email))
+                }
+            }
+        }
+    }
+
     private fun updatePosts(posts: List<Post>, isSuccess: MutableLiveData<List<Post>>) {
         executor.execute {
             DbService.postsDb.postsDao().insert(posts)
@@ -103,6 +145,13 @@ class Repository @Inject constructor() {
         executor.execute {
             DbService.postsDb.usersDao().insert(users)
             isSuccess.postValue(users)
+        }
+    }
+
+    private fun updateComments(comments: List<Comment>, isSuccess: MutableLiveData<List<Comment>>) {
+        executor.execute {
+            DbService.postsDb.commentsDao().insert(comments)
+            isSuccess.postValue(comments)
         }
     }
 

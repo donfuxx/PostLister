@@ -15,15 +15,22 @@ object ApiService {
     /**
      * Create api interface for posts api
      */
-    val postsApi by lazy {
+    val postsApi: PostsApi by lazy {
         retrofit.create(PostsApi::class.java)
     }
 
     /**
      * Create api interface for users api
      */
-    val usersApi by lazy {
+    val usersApi: UsersApi by lazy {
         retrofit.create(UsersApi::class.java)
+    }
+
+    /**
+     * Create api interface for comments api
+     */
+    val commentsApi: CommentsApi by lazy {
+        retrofit.create(CommentsApi::class.java)
     }
 
     /**

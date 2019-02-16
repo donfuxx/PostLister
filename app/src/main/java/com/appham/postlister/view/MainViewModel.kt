@@ -8,12 +8,12 @@ import com.appham.postlister.model.Post
 import com.appham.postlister.model.Repository
 import javax.inject.Inject
 
-class MainViewModel : ViewModel(), Busy {
+class MainViewModel : ViewModel() {
 
     @Inject
     lateinit var repository: Repository
 
-//    private val isBusy = MutableLiveData<Boolean>()
+    private val isBusy: MutableLiveData<Boolean> = MutableLiveData()
 
     private val isSuccess = MutableLiveData<List<Post>>()
 

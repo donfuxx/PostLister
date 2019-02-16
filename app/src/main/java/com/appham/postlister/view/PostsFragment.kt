@@ -38,7 +38,7 @@ class PostsFragment : Fragment() {
         // LiveData Observers
         viewModel.getIsBusy().observe(viewLifecycleOwner, Observer { isBusy ->
             isBusy?.let {
-                progressBar.visibility = if (it) View.VISIBLE else View.GONE
+                progressBarPosts.visibility = if (it) View.VISIBLE else View.GONE
             }
         })
         viewModel.getIsSuccess().observe(viewLifecycleOwner, Observer { items ->
