@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
 class DetailsFragment : Fragment() {
 
     private val viewModel by lazy {
-        ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+        ViewModelProviders.of(activity!!).get(DetailsViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -22,6 +22,10 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        txtDetailsPostTitle.text = "some test title"
+        txtDetailsPostBody.text = viewModel.postBody
+
+        viewModel.loadPostDetails()
+
+
     }
 }

@@ -21,7 +21,7 @@ class PostsAdapter(private val viewModel: MainViewModel) : ListAdapter<Post, Pos
         holder.txtTitle.text = item.title
         holder.txtBody.text = item.body
         holder.cardImgUser.setOnClickListener {
-            viewModel.navigate(item.userId)
+            viewModel.navigate(item)
         }
     }
 

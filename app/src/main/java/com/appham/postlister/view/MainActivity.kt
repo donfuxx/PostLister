@@ -19,9 +19,9 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(PostsFragment(), R.id.framePosts)
 
-        viewModel.getNextScreen().observe(this, Observer { userId ->
-            userId?.let {
-                startActivity(DetailsActivity.newLaunchIntent(this, userId ))
+        viewModel.getNextScreen().observe(this, Observer { post ->
+            post?.let {
+                startActivity(DetailsActivity.newLaunchIntent(this, post.userId, post.title, post.body))
             }
         })
     }

@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 
 class DetailsViewModel : ViewModel() {
 
+    var userId: Int = 0
+    lateinit var postTitle: String
+    lateinit var postBody: String
 
-    fun setUserId(int: Int) {
+    fun loadPostDetails() {
 
     }
 

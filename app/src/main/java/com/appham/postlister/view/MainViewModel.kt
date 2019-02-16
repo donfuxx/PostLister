@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
 
     private val isSuccess = MutableLiveData<List<Post>>()
 
-    private val nextScreen = MutableLiveData<Int>()
+    private val nextScreen = MutableLiveData<Post>()
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
@@ -31,7 +31,7 @@ class MainViewModel : ViewModel() {
         return isSuccess
     }
 
-    fun getNextScreen(): LiveData<Int> {
+    fun getNextScreen(): LiveData<Post> {
         return nextScreen
     }
 
@@ -39,7 +39,7 @@ class MainViewModel : ViewModel() {
         repository.posts(isBusy, isSuccess)
     }
 
-    fun navigate(userId: Int) {
+    fun navigate(userId: Post) {
         nextScreen.postValue(userId)
     }
 }
