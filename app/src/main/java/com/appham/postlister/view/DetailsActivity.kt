@@ -23,7 +23,7 @@ class DetailsActivity : AppCompatActivity() {
         viewModel.postTitle = intent?.getStringExtra(KEY_POST_TITLE) ?: ""
         viewModel.postBody = intent?.getStringExtra(KEY_POST_BODY) ?: ""
 
-        supportActionBar?.title = viewModel.postTitle
+        supportActionBar?.title = getString(R.string.details)
 
         replaceFragment(DetailsFragment(), R.id.frameDetails)
     }

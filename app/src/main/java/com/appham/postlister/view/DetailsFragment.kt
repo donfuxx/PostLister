@@ -23,6 +23,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        txtDetailsPostTitle.text = viewModel.postTitle
         txtDetailsPostBody.text = viewModel.postBody
 
         viewModel.getIsBusy().observe(viewLifecycleOwner, Observer { isBusy ->

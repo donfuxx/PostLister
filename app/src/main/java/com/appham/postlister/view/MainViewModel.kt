@@ -42,4 +42,9 @@ class MainViewModel : ViewModel() {
     fun navigate(userId: Post) {
         nextScreen.postValue(userId)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        repository.dispose()
+    }
 }

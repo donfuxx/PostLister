@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PostLister</string>
     <string name="comments_count">%1$d comments</string>
+    <string name="details">Details</string>
 </resources>

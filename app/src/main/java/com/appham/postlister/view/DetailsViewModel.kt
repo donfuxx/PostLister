@@ -51,6 +51,7 @@ class DetailsViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         isSuccessUser.removeObserver(userObserver)
+        repository.dispose()
     }
 
 }
