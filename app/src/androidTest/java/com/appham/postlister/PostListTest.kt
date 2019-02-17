@@ -62,13 +62,26 @@ class PostListTest {
     }
 
     /**
-     * Test that "sunt aut.." comes first
+     * Test that "sunt aut.." comes as first title
      */
     @Test
-    fun testPostListShowsFirst() {
+    fun testPostListShowsFirstTitle() {
         val firstTitle = "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
         onView(withId(R.id.listPosts))
             .check(matches(atPosition(0, hasDescendant(withText(firstTitle)))))
+    }
+
+    /**
+     * Test that "quia et suscipit" comes as first body
+     */
+    @Test
+    fun testPostListShowsFirstBody() {
+        val firstBody = "quia et suscipit\n" +
+                "suscipit recusandae consequuntur expedita et cum\n" +
+                "reprehenderit molestiae ut ut quas totam\n" +
+                "nostrum rerum est autem sunt rem eveniet architecto"
+        onView(withId(R.id.listPosts))
+            .check(matches(atPosition(0, hasDescendant(withText(firstBody)))))
     }
 
     /**
