@@ -157,6 +157,7 @@ class Repository @Inject constructor() {
 
     fun dispose() {
         compositeDisposable.clear()
+        executor.shutdown()
     }
 
 }
