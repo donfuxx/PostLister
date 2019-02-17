@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 class PostListTest {
 
-    private val progressBar by lazy {
+    private val progressBarPosts by lazy {
         ViewIdlingResource(activityRule.activity.findViewById(R.id.progressBarPosts))
     }
 
@@ -45,12 +45,12 @@ class PostListTest {
         IdlingPolicies.setMasterPolicyTimeout(4000, TimeUnit.MILLISECONDS)
         IdlingPolicies.setIdlingResourceTimeout(2000, TimeUnit.MILLISECONDS)
 
-        IdlingRegistry.getInstance().register(progressBar) //wait for loading spinner to disappear
+        IdlingRegistry.getInstance().register(progressBarPosts) //wait for loading spinner to disappear
     }
 
     @After
     fun cleanup() {
-        IdlingRegistry.getInstance().unregister(progressBar)
+        IdlingRegistry.getInstance().unregister(progressBarPosts)
     }
 
     /**

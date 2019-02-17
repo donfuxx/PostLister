@@ -11,6 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class Repository @Inject constructor() {
@@ -162,7 +163,7 @@ class Repository @Inject constructor() {
 
     fun dispose() {
         compositeDisposable.clear()
-        executor.shutdown()
+        executor.awaitTermination(1, TimeUnit.SECONDS)
     }
 
 }

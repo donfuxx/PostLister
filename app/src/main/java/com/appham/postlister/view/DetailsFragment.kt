@@ -28,9 +28,7 @@ class DetailsFragment : Fragment() {
         txtDetailsPostBody.text = viewModel.postBody
 
         viewModel.getIsBusy().observe(viewLifecycleOwner, Observer { isBusy ->
-            isBusy?.let {
-                progressBarDetails.visibility = if (it) View.VISIBLE else View.GONE
-            }
+            progressBarDetails.visibility = if (isBusy) View.VISIBLE else View.GONE
         })
         viewModel.getIsSuccessUser().observe(viewLifecycleOwner, Observer { user ->
             user?.let {
