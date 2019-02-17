@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appham.postlister.R
+import com.appham.postlister.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_posts.*
 
 class PostsFragment : Fragment() {

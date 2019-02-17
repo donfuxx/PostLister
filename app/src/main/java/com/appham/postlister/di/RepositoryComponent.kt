@@ -1,7 +1,7 @@
 package com.appham.postlister.di
 
-import com.appham.postlister.view.DetailsViewModel
-import com.appham.postlister.view.MainViewModel
+import com.appham.postlister.viewmodel.DetailsViewModel
+import com.appham.postlister.viewmodel.MainViewModel
 import dagger.Component
 import javax.inject.Singleton
 

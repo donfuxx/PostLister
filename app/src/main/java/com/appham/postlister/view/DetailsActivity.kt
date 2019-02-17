@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.appham.postlister.R
 import com.appham.postlister.utils.replaceFragment
+import com.appham.postlister.viewmodel.DetailsViewModel
 
 class DetailsActivity : AppCompatActivity() {
 

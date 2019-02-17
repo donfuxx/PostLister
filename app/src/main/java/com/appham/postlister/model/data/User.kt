@@ -1,4 +1,4 @@
-package com.appham.postlister.model
+package com.appham.postlister.model.data
 
 import androidx.room.Entity
 import androidx.room.Ignore

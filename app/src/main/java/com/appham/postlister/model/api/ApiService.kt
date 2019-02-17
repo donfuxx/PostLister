@@ -1,4 +1,4 @@
-package com.appham.postlister.model
+package com.appham.postlister.model.api
 
 import com.appham.postlister.BuildConfig
 import okhttp3.OkHttpClient

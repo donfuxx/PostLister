@@ -1,4 +1,4 @@
-package com.appham.postlister.model
+package com.appham.postlister.model.db
 
 import android.app.Application
 import androidx.room.Room

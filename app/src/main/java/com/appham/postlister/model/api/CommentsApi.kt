@@ -1,5 +1,6 @@
-package com.appham.postlister.model
+package com.appham.postlister.model.api
 
+import com.appham.postlister.model.data.Comment
 import io.reactivex.Observable
 import retrofit2.http.GET
 

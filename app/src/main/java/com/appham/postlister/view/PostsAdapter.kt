@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.appham.postlister.R
-import com.appham.postlister.model.Post
+import com.appham.postlister.model.data.Post
+import com.appham.postlister.viewmodel.MainViewModel
 
 class PostsAdapter(private val viewModel: MainViewModel) : ListAdapter<Post, PostsAdapter.PostViewHolder>(TransactionDiffCallback()) {
 

@@ -1,9 +1,9 @@
-package com.appham.postlister.view
+package com.appham.postlister.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.appham.postlister.di.DaggerRepositoryComponent
-import com.appham.postlister.model.Post
+import com.appham.postlister.model.data.Post
 
 class MainViewModel : RepoViewModel() {
 

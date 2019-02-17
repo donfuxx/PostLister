@@ -2,7 +2,7 @@ package com.appham.postlister
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.appham.postlister.model.Repository
-import com.appham.postlister.view.MainViewModel
+import com.appham.postlister.viewmodel.MainViewModel
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.spy
 import com.nhaarman.mockitokotlin2.times

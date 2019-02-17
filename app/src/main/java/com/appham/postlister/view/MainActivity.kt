@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.appham.postlister.R
 import com.appham.postlister.utils.replaceFragment
+import com.appham.postlister.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
