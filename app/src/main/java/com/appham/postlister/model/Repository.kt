@@ -101,8 +101,7 @@ class Repository @Inject constructor() {
 
                     onSuccess = {
                         Log.d(javaClass.simpleName, "onSuccess: $it")
-                        updateComments(it, isSuccess)
-                        busyCallback.setBusy(false)
+                        updateComments(it, busyCallback, isSuccess)
                     },
 
                     onError = {
@@ -145,10 +144,11 @@ class Repository @Inject constructor() {
         }
     }
 
-    private fun updateComments(comments: List<Comment>, isSuccess: MutableLiveData<List<Comment>>) {
+    private fun updateComments(comments: List<Comment>, busyCallback: BusyCallback, isSuccess: MutableLiveData<List<Comment>>) {
         executor.execute {
             DbService.postsDb.commentsDao().insert(comments)
             isSuccess.postValue(comments)
+            busyCallback.setBusy(false)
         }
     }
 
