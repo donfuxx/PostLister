@@ -28,10 +28,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class PostListTest {
 
-//    private val progressBarPosts by lazy {
-//        ViewIdlingResource(activityRule.activity.findViewById(R.id.progressBarPosts))
-//    }
-
     @get:Rule
     val activityRule by lazy {
         ActivityTestRule<MainActivity>(MainActivity::class.java)
@@ -81,6 +77,7 @@ class PostListTest {
         onView(withId(R.id.listPosts))
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
+        waitForCondition(ViewDisappearInstruction(activityRule.activity, R.id.txtDetailsUser))
         onView(withId(R.id.txtDetailsUser)).check(matches(allOf(isDisplayed(), withText("Leanne Graham"))))
     }
 
