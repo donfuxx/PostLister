@@ -1,7 +1,7 @@
 package com.appham.postlister.model.api
 
 import com.appham.postlister.model.data.Comment
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 
 /**
@@ -10,6 +10,6 @@ import retrofit2.http.GET
 interface CommentsApi {
 
     @GET("/comments")
-    fun getComments(): Observable<List<Comment>>
+    fun getComments(): Single<List<Comment>>
 
 }

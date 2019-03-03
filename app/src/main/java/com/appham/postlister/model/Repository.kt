@@ -34,19 +34,15 @@ class Repository @Inject constructor() {
             .subscribeOn(Schedulers.io())
             .subscribeBy(
 
-                onNext = {
-                    Log.d(javaClass.simpleName, "onNext: $it")
+                onSuccess = {
+                    Log.d(javaClass.simpleName, "onSuccess: $it")
                     updatePosts(it, isSuccess)
+                    isBusy.postValue(false)
                 },
 
                 onError = {
                     Log.e(javaClass.simpleName, "onError: $it")
                     isSuccess.postValue(null)
-                    isBusy.postValue(false)
-                },
-
-                onComplete = {
-                    Log.d(javaClass.simpleName, "onComplete!")
                     isBusy.postValue(false)
                 }
 
@@ -64,19 +60,15 @@ class Repository @Inject constructor() {
                 .subscribeOn(Schedulers.io())
                 .subscribeBy(
 
-                    onNext = {
-                        Log.d(javaClass.simpleName, "onNext: $it")
+                    onSuccess = {
+                        Log.d(javaClass.simpleName, "onSuccess: $it")
                         updateUsers(it, isSuccess)
+                        isBusy.postValue(false)
                     },
 
                     onError = {
                         Log.e(javaClass.simpleName, "onError: $it")
                         isSuccess.postValue(null)
-                        isBusy.postValue(false)
-                    },
-
-                    onComplete = {
-                        Log.d(javaClass.simpleName, "onComplete!")
                         isBusy.postValue(false)
                     }
 
@@ -106,19 +98,15 @@ class Repository @Inject constructor() {
                 .subscribeOn(Schedulers.io())
                 .subscribeBy(
 
-                    onNext = {
-                        Log.d(javaClass.simpleName, "onNext: $it")
+                    onSuccess = {
+                        Log.d(javaClass.simpleName, "onSuccess: $it")
                         updateComments(it, isSuccess)
+                        isBusy.postValue(false)
                     },
 
                     onError = {
                         Log.e(javaClass.simpleName, "onError: $it")
                         isSuccess.postValue(null)
-                        isBusy.postValue(false)
-                    },
-
-                    onComplete = {
-                        Log.d(javaClass.simpleName, "onComplete!")
                         isBusy.postValue(false)
                     }
 

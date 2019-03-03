@@ -1,7 +1,7 @@
 package com.appham.postlister.model.api
 
 import com.appham.postlister.model.data.Post
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 
 /**
@@ -10,6 +10,6 @@ import retrofit2.http.GET
 interface PostsApi {
 
     @GET("/posts")
-    fun getPosts(): Observable<List<Post>>
+    fun getPosts(): Single<List<Post>>
 
 }

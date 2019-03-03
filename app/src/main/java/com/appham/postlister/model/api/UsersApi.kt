@@ -1,7 +1,7 @@
 package com.appham.postlister.model.api
 
 import com.appham.postlister.model.data.User
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 
 
@@ -11,5 +11,5 @@ import retrofit2.http.GET
 interface UsersApi {
 
     @GET("/users")
-    fun getUsers(): Observable<List<User>>
+    fun getUsers(): Single<List<User>>
 }
