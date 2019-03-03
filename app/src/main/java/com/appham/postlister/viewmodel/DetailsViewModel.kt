@@ -28,7 +28,7 @@ class DetailsViewModel : RepoViewModel() {
     }
 
     fun loadPostDetails() {
-        repository.user(userId, isBusy, isSuccessUser)
+        repository.user(userId, this, isSuccessUser)
         repository.commentsCount(postId, isBusy, isSuccessComments)
     }
 

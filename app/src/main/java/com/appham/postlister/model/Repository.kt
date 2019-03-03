@@ -52,8 +52,8 @@ class Repository @Inject constructor() {
 
     }
 
-    fun users(isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<List<User>>) {
-        isBusy.postValue(true)
+    fun users(busyCallback: BusyCallback, isSuccess: MutableLiveData<List<User>>) {
+        busyCallback.setBusy(true)
 
         val disposable =
             ApiService.usersApi.getUsers()
@@ -62,14 +62,13 @@ class Repository @Inject constructor() {
 
                     onSuccess = {
                         Log.d(javaClass.simpleName, "onSuccess: $it")
-                        updateUsers(it, isSuccess)
-                        isBusy.postValue(false)
+                        updateUsers(it, busyCallback, isSuccess)
                     },
 
                     onError = {
                         Log.e(javaClass.simpleName, "onError: $it")
                         isSuccess.postValue(null)
-                        isBusy.postValue(false)
+                        busyCallback.setBusy(false)
                     }
 
                 )
@@ -77,9 +76,9 @@ class Repository @Inject constructor() {
         compositeDisposable.add(disposable)
     }
 
-    fun user(id: Int, isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<User>) {
+    fun user(id: Int, busyCallback: BusyCallback, isSuccess: MutableLiveData<User>) {
         val users: MutableLiveData<List<User>> = MutableLiveData()
-        users(isBusy, users)
+        users(busyCallback, users)
 
         users.observeForever { userList ->
             userList?.takeIf { it.isNotEmpty() }.let {
@@ -136,10 +135,11 @@ class Repository @Inject constructor() {
         }
     }
 
-    private fun updateUsers(users: List<User>, isSuccess: MutableLiveData<List<User>>) {
+    private fun updateUsers(users: List<User>, busyCallback: BusyCallback, isSuccess: MutableLiveData<List<User>>) {
         executor.execute {
             DbService.postsDb.usersDao().insert(users)
             isSuccess.postValue(users)
+            busyCallback.setBusy(false)
         }
     }
 
