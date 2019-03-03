@@ -36,7 +36,7 @@ class DetailsViewModel : RepoViewModel(), UserLoadedCallback, CommentsLoadedCall
 
     fun loadPostDetails() {
         repository.user(userId, this, this)
-        repository.commentsCount(postId, isBusy, this)
+        repository.commentsCount(postId, this, this)
     }
 
     override fun onCleared() {

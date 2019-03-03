@@ -91,8 +91,8 @@ class Repository @Inject constructor() {
         }
     }
 
-    fun comments(isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<List<Comment>>) {
-        isBusy.postValue(true)
+    fun comments(busyCallback: BusyCallback, isSuccess: MutableLiveData<List<Comment>>) {
+        busyCallback.setBusy(true)
 
         val disposable =
             ApiService.commentsApi.getComments()
@@ -102,13 +102,13 @@ class Repository @Inject constructor() {
                     onSuccess = {
                         Log.d(javaClass.simpleName, "onSuccess: $it")
                         updateComments(it, isSuccess)
-                        isBusy.postValue(false)
+                        busyCallback.setBusy(false)
                     },
 
                     onError = {
                         Log.e(javaClass.simpleName, "onError: $it")
                         isSuccess.postValue(null)
-                        isBusy.postValue(false)
+                        busyCallback.setBusy(false)
                     }
 
                 )
@@ -116,9 +116,9 @@ class Repository @Inject constructor() {
         compositeDisposable.add(disposable)
     }
 
-    fun commentsCount(postId: Int, isBusy: MutableLiveData<Boolean>, commentsLoadedCallback: CommentsLoadedCallback) {
+    fun commentsCount(postId: Int, busyCallback: BusyCallback, commentsLoadedCallback: CommentsLoadedCallback) {
         val comments: MutableLiveData<List<Comment>> = MutableLiveData()
-        comments(isBusy, comments)
+        comments(busyCallback, comments)
 
         comments.observeForever { commentList ->
             commentList?.takeIf { it.isNotEmpty() }.let {
