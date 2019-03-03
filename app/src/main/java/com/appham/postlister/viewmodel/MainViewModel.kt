@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.appham.postlister.di.DaggerRepositoryComponent
 import com.appham.postlister.model.data.Post
 
-class MainViewModel : RepoViewModel() {
-
-    private val isSuccess = MutableLiveData<List<Post>>()
+class MainViewModel : RepoViewModel(), PostsLoadedCallback {
+    private val loadedPosts = MutableLiveData<List<Post>>()
 
     private val nextScreen = MutableLiveData<Post>()
 
@@ -15,8 +14,8 @@ class MainViewModel : RepoViewModel() {
         DaggerRepositoryComponent.builder().build().inject(this)
     }
 
-    fun getIsSuccess(): LiveData<List<Post>> {
-        return isSuccess
+    fun getLoadedPosts(): LiveData<List<Post>> {
+        return loadedPosts
     }
 
     fun getNextScreen(): LiveData<Post> {
@@ -24,7 +23,11 @@ class MainViewModel : RepoViewModel() {
     }
 
     fun getPosts() {
-        repository.posts(isBusy, isSuccess)
+        repository.posts(this, this)
+    }
+
+    override fun setPosts(posts: List<Post>) {
+        loadedPosts.postValue(posts)
     }
 
     fun navigate(post: Post) {

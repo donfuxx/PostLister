@@ -7,6 +7,8 @@ import com.appham.postlister.model.data.Comment
 import com.appham.postlister.model.data.Post
 import com.appham.postlister.model.data.User
 import com.appham.postlister.model.db.DbService
+import com.appham.postlister.viewmodel.BusyCallback
+import com.appham.postlister.viewmodel.PostsLoadedCallback
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -24,10 +26,9 @@ class Repository @Inject constructor() {
         Executors.newSingleThreadExecutor()
     }
 
+    fun posts(busyCallback: BusyCallback, postsLoadedCallback: PostsLoadedCallback) {
 
-    fun posts(isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<List<Post>>) {
-
-        isBusy.postValue(true)
+        busyCallback.setBusy(true)
 
         val disposable =
             ApiService.postsApi.getPosts()
@@ -36,14 +37,13 @@ class Repository @Inject constructor() {
 
                 onSuccess = {
                     Log.d(javaClass.simpleName, "onSuccess: $it")
-                    updatePosts(it, isSuccess)
-                    isBusy.postValue(false)
+                    updatePosts(it, busyCallback, postsLoadedCallback)
                 },
 
                 onError = {
                     Log.e(javaClass.simpleName, "onError: $it")
-                    isSuccess.postValue(null)
-                    isBusy.postValue(false)
+                    postsLoadedCallback.setPosts(listOf())
+                    busyCallback.setBusy(false)
                 }
 
             )
@@ -128,10 +128,11 @@ class Repository @Inject constructor() {
         }
     }
 
-    private fun updatePosts(posts: List<Post>, isSuccess: MutableLiveData<List<Post>>) {
+    private fun updatePosts(posts: List<Post>, busyCallback: BusyCallback, postsLoadedCallback: PostsLoadedCallback) {
         executor.execute {
             DbService.postsDb.postsDao().insert(posts)
-            isSuccess.postValue(posts)
+            postsLoadedCallback.setPosts(posts)
+            busyCallback.setBusy(false)
         }
     }
 

@@ -40,7 +40,7 @@ class PostsFragment : Fragment() {
         viewModel.getIsBusy().observe(viewLifecycleOwner, Observer { isBusy ->
             progressBarPosts.visibility = if (isBusy) View.VISIBLE else View.GONE
         })
-        viewModel.getIsSuccess().observe(viewLifecycleOwner, Observer { items ->
+        viewModel.getLoadedPosts().observe(viewLifecycleOwner, Observer { items ->
             Log.d(javaClass.simpleName, "observed: $items")
             items?.let {
                 postsAdapter.submitList(items)

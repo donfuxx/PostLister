@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.appham.postlister.model.Repository
 import javax.inject.Inject
 
-abstract class RepoViewModel : ViewModel(), Busy {
+abstract class RepoViewModel : ViewModel(), BusyCallback {
 
     @Inject
     lateinit var repository: Repository
@@ -15,5 +15,9 @@ abstract class RepoViewModel : ViewModel(), Busy {
 
     override fun getIsBusy(): LiveData<Boolean> {
         return isBusy
+    }
+
+    override fun setBusy(isBusyValue: Boolean) {
+        isBusy.postValue(isBusyValue)
     }
 }
