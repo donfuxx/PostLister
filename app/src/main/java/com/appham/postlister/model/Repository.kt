@@ -9,6 +9,7 @@ import com.appham.postlister.model.data.User
 import com.appham.postlister.model.db.DbService
 import com.appham.postlister.viewmodel.BusyCallback
 import com.appham.postlister.viewmodel.PostsLoadedCallback
+import com.appham.postlister.viewmodel.UserLoadedCallback
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -76,14 +77,14 @@ class Repository @Inject constructor() {
         compositeDisposable.add(disposable)
     }
 
-    fun user(id: Int, busyCallback: BusyCallback, isSuccess: MutableLiveData<User>) {
+    fun user(id: Int, busyCallback: BusyCallback, userLoadedCallback: UserLoadedCallback) {
         val users: MutableLiveData<List<User>> = MutableLiveData()
         users(busyCallback, users)
 
         users.observeForever { userList ->
             userList?.takeIf { it.isNotEmpty() }.let {
                 executor.execute {
-                    isSuccess.postValue(DbService.postsDb.usersDao().getById(id))
+                    userLoadedCallback.setUser(DbService.postsDb.usersDao().getById(id))
                 }
             }
         }
