@@ -2,8 +2,6 @@ package com.appham.postlister
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingPolicies
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -11,16 +9,15 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.appham.postlister.utils.ViewIdlingResource
+import com.appham.postlister.utils.ViewDisappearInstruction
 import com.appham.postlister.utils.atPosition
 import com.appham.postlister.view.MainActivity
+import com.azimolabs.conditionwatcher.ConditionWatcher.waitForCondition
 import org.hamcrest.Matchers.allOf
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -31,9 +28,9 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 class PostListTest {
 
-    private val progressBarPosts by lazy {
-        ViewIdlingResource(activityRule.activity.findViewById(R.id.progressBarPosts))
-    }
+//    private val progressBarPosts by lazy {
+//        ViewIdlingResource(activityRule.activity.findViewById(R.id.progressBarPosts))
+//    }
 
     @get:Rule
     val activityRule by lazy {
@@ -42,15 +39,7 @@ class PostListTest {
 
     @Before
     fun setup() {
-        IdlingPolicies.setMasterPolicyTimeout(4000, TimeUnit.MILLISECONDS)
-        IdlingPolicies.setIdlingResourceTimeout(2000, TimeUnit.MILLISECONDS)
-
-        IdlingRegistry.getInstance().register(progressBarPosts) //wait for loading spinner to disappear
-    }
-
-    @After
-    fun cleanup() {
-        IdlingRegistry.getInstance().unregister(progressBarPosts)
+        waitForCondition(ViewDisappearInstruction(activityRule.activity, R.id.progressBarPosts))
     }
 
     /**
@@ -100,7 +89,6 @@ class PostListTest {
      */
     @Test
     fun testPostListShowHundredItems() {
-
         onView(withId(R.id.listPosts))
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(99, scrollTo()))
 
