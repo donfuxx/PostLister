@@ -8,6 +8,7 @@ import com.appham.postlister.model.data.Post
 import com.appham.postlister.model.data.User
 import com.appham.postlister.model.db.DbService
 import com.appham.postlister.viewmodel.BusyCallback
+import com.appham.postlister.viewmodel.CommentsLoadedCallback
 import com.appham.postlister.viewmodel.PostsLoadedCallback
 import com.appham.postlister.viewmodel.UserLoadedCallback
 import io.reactivex.disposables.CompositeDisposable
@@ -115,14 +116,14 @@ class Repository @Inject constructor() {
         compositeDisposable.add(disposable)
     }
 
-    fun commentsCount(postId: Int, isBusy: MutableLiveData<Boolean>, isSuccess: MutableLiveData<Int>) {
+    fun commentsCount(postId: Int, isBusy: MutableLiveData<Boolean>, commentsLoadedCallback: CommentsLoadedCallback) {
         val comments: MutableLiveData<List<Comment>> = MutableLiveData()
         comments(isBusy, comments)
 
         comments.observeForever { commentList ->
             commentList?.takeIf { it.isNotEmpty() }.let {
                 executor.execute {
-                    isSuccess.postValue(DbService.postsDb.commentsDao().getCount(postId))
+                    commentsLoadedCallback.setComments(DbService.postsDb.commentsDao().getCount(postId))
                 }
             }
         }
